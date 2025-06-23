@@ -1,27 +1,21 @@
 from Task import Task
 
-test = Task("Test Task", "2023-10-01", 1)
 
-print(test)
-print(test.name)
-print(test.priority)
+class TaskOperations:
+    def __init__(self):
+        self.task_list = []
 
+    def add_task(self):
+        print("Adding task")
 
-def add_task():
-    print("Adding task")
+    def remove_task(self):
+        print("Removing task")
 
+    def view_tasks(self):
+        print("View tasks")
 
-def remove_task():
-    print("Removing task")
+    def suggest_tasks(self):
+        print("Suggesting tasks")
 
-
-def view_tasks():
-    print("View tasks")
-
-
-def suggest_tasks():
-    print("Suggesting tasks")
-
-
-def edit_task():
-    print("Editing task")
+    def exit_app(self):
+        print("Exiting the application. Goodbye!")
