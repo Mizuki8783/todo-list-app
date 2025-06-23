@@ -5,9 +5,10 @@ class TaskOperations:
     def __init__(self):
         self.task_list = []
 
-    def add_task(self, Task):
-        self.task_list.append(Task)
-        print(f"{Task.name} has been added to the task list.")
+    def add_task(self):
+        name = input("Enter the task: ")
+        self.task_list.append(Task(name))
+        print(f"{name} has been added to the task list.")
 
     def remove_task(self):
         print("Removing task")
