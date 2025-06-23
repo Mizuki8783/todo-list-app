@@ -9,7 +9,13 @@ class TaskOperations:
         print("Adding task")
 
     def remove_task(self):
-        print("Removing task")
+        task_name = input("Enter the task to remove: ")
+        for task in self.task_list:
+            if task.name == task_name:
+                self.task_list.remove(task)
+                print(f"'{task_name}' has been removed from the list.")
+                return
+        print(f"Task {task_name} not found")
 
     def view_tasks(self):
         print("View tasks")
