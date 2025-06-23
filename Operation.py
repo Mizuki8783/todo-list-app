@@ -10,13 +10,20 @@ class TaskOperations:
         print("Adding task")
 
     def remove_task(self):
-        task_name = input("Enter the task to remove: ")
-        for task in self.task_list:
-            if task.name == task_name:
-                self.task_list.remove(task)
-                print(f"'{task_name}' has been removed from the list.")
-                return
-        print(f"Task {task_name} not found")
+        task_number = input("Enter the task number to remove: ")
+        try:
+            task_number = int(task_number)
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+            return
+        if task_number < 1 or task_number > len(self.task_list):
+            print("Invalid task number.")
+            return
+
+        task = self.task_list[task_number - 1]
+        self.task_list.remove(task)
+        print(f"'{task.name}' has been removed from the list.")
+        return
 
     def view_tasks(self):
         print("View tasks")
