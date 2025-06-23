@@ -1,4 +1,5 @@
 from Operation import TaskOperations
+from Task import Task
 
 
 def main():
@@ -8,26 +9,23 @@ def main():
     print("3. View Task")
     print("4. Suggest Task")
     print("5. Exit")
-    test = TaskOperations()
-    test.add_task()
-    
-    # operation = input("Enter your choice: ")
-    # try:
-    #     operation = int(operation)
-    # except ValueError:
-    #     print("Invalid input. Please enter a number between 1 and 5.")
-    #     return
+    to = TaskOperations()
 
-    # if operation == 1:
-    #     op.add_task()
-    # elif operation == 2:
-    #     op.remove_task()
-    # elif operation == 3:
-    #     op.view_tasks()
-    # elif operation == 4:
-    #     op.suggest_tasks()
-    # elif operation == 5:
-        # op.exit_app()
+    while True:
+        try:
+            operation = input("Enter your choice: ")
+            operation = int(operation)
+            break
+        except ValueError:
+            print("Invalid input. Please enter a number between 1 and 5.")
+            continue
+        except:  # noqa: E722
+            print("Occur some input error")
+            break
+
+    if operation == 1:
+        name = input("Enter the task: ")
+        to.add_task(Task(name))
 
 
 if __name__ == "__main__":
