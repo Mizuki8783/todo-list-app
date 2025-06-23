@@ -25,3 +25,4 @@ class TaskOperations:
 
     def exit_app(self):
         print("Exiting the application. Goodbye!")
+        exit()
