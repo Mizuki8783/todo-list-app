@@ -1,4 +1,5 @@
 from Task import Task
+import pandas as pd
 
 
 class TaskOperations:
@@ -25,4 +26,7 @@ class TaskOperations:
 
     def exit_app(self):
         print("Exiting the application. Goodbye!")
+        df = pd.DataFrame([(task.name, task.deadline, task.priority) for task in self.task_list],
+                          columns=['name', 'deadline', 'priority'])
+        df.to_csv('task_list.csv', index=False)
         exit()
