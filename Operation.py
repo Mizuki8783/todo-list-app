@@ -1,4 +1,5 @@
 from Task import Task
+import pandas as pd
 
 
 class TaskOperations:
@@ -11,7 +12,20 @@ class TaskOperations:
         print(f"{name} has been added to the task list.")
 
     def remove_task(self):
-        print("Removing task")
+        task_number = input("Enter the task number to remove: ")
+        try:
+            task_number = int(task_number)
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+            return
+        if task_number < 1 or task_number > len(self.task_list):
+            print("Invalid task number.")
+            return
+
+        task = self.task_list[task_number - 1]
+        self.task_list.remove(task)
+        print(f"'{task.name}' has been removed from the list.")
+        return
 
     def view_tasks(self):
         print("View tasks")
@@ -31,3 +45,7 @@ class TaskOperations:
 
     def exit_app(self):
         print("Exiting the application. Goodbye!")
+        df = pd.DataFrame([(task.name, task.deadline, task.priority) for task in self.task_list],
+                          columns=['name', 'deadline', 'priority'])
+        df.to_csv('task_list.csv', index=False)
+        exit()
