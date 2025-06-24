@@ -112,20 +112,35 @@ class TaskOperations:
             for i, sorted_task in enumerate(sorted_tasks):
                 print(
                     f"{i + 1}. {sorted_task.name} - {priority_reverse_map[sorted_task.priority]} - {sorted_task.deadline}")
-        print("View tasks")
 
     def suggest_tasks(self):
         if not self.task_list:
             print("No tasks to suggest.")
             return
 
-        # Suggests the tasks with highest priority
-        sorted_tasks = sorted(self.task_list, key=lambda task: task.priority, reverse=True)
-        top_tasks = sorted_tasks[:3]
-        print("Suggested Tasks (based on priority):")
-        
-        for task in top_tasks:
-            print(task)
+        print("\nHow would you like to sort task suggestions?")
+        print("1. By priority (High → Low)")
+        print("2. By deadline (Sooner → Later)")
+
+        choice = input("Enter 1 or 2: ").strip()
+
+        if choice == "1":
+            sorted_tasks = sorted(self.task_list, key=lambda task: task.priority)
+            print("\nSuggested Tasks (by priority):")
+        elif choice == "2":
+            sorted_tasks = sorted(self.task_list, key=lambda task: datetime.strptime(str(task.deadline), "%Y-%m-%d"))
+            print("\nSuggested Tasks (by deadline):")
+        else:
+            print("Invalid option. Showing default (by priority).")
+            sorted_tasks = sorted(self.task_list, key=lambda task: task.priority)
+
+        # Mostrar até 3 sugestões
+        top_tasks = sorted_tasks[:5]
+
+        priority_reverse_map = {v: k.capitalize() for k, v in self.priority_map.items()}
+
+        for i, task in enumerate(top_tasks, 1):
+            print(f"{i}. {task.name} - {priority_reverse_map[task.priority]} - {task.deadline}")
 
     def exit_app(self):
         print("Exiting the application. Goodbye!")
