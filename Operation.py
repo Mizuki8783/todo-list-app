@@ -125,22 +125,26 @@ class TaskOperations:
         choice = input("Enter 1 or 2: ").strip()
 
         if choice == "1":
+            # Sort by priority (lower number = higher priority)
             sorted_tasks = sorted(self.task_list, key=lambda task: task.priority)
             print("\nSuggested Tasks (by priority):")
         elif choice == "2":
+            # Sort by deadline (earlier date comes first)
             sorted_tasks = sorted(self.task_list, key=lambda task: datetime.strptime(str(task.deadline), "%Y-%m-%d"))
             print("\nSuggested Tasks (by deadline):")
         else:
             print("Invalid option. Showing default (by priority).")
             sorted_tasks = sorted(self.task_list, key=lambda task: task.priority)
 
-        # Mostrar até 3 sugestões
+        # Show up to 5 suggestions
         top_tasks = sorted_tasks[:5]
 
+        # Map priority values to readable strings
         priority_reverse_map = {v: k.capitalize() for k, v in self.priority_map.items()}
 
         for i, task in enumerate(top_tasks, 1):
             print(f"{i}. {task.name} - {priority_reverse_map[task.priority]} - {task.deadline}")
+
 
     def exit_app(self):
         print("Exiting the application. Goodbye!")
