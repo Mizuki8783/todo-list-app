@@ -1,5 +1,5 @@
 class Task:
-    def __init__(self, name: str, deadline: str = "", priority: int = 0):
+    def __init__(self, name: str, deadline: int = 0, priority: int = 0):
         self.name = name
         self.priority = priority
         self.deadline = deadline
