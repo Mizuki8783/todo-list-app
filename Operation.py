@@ -60,7 +60,7 @@ class TaskOperations:
     def view_tasks(self):
         print("You can enter up to two columns you'd like to sort by below. If nothing is entered, the default order in the document will be used.")
         column_first = input("Enter the first column you want to sort by: ")
-        while column_first not in list(self.task_list.columns):
+        while column_first not in self.task_list.columns:
             print("Column doesn't exist!")
             column_first = input("Enter the first column you want to sort by: ")
         if column_first == "":
@@ -69,9 +69,9 @@ class TaskOperations:
             columns = []
             columns.append(column_first)
             column_second = input("Enter the second column you want to sort by: ")
-            while (column_second not in list(self.task_list.columns)
+            while (column_second not in self.task_list.columns
                    or column_second == column_first):
-                if column_second not in list(self.task_list.columns):
+                if column_second not in self.task_list.columns:
                     print("Column doesn't exist!")
                 elif column_second == column_first:
                     print("This column is already sorted!")
