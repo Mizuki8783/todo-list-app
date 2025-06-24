@@ -1,15 +1,20 @@
 from Task import Task
+from datetime import datetime
+from zoneinfo import ZoneInfo
 import pandas as pd
 import csv
 import os
 
 class TaskOperations:
+
+  priority_map = {'high': 0, 'medium': 1, 'low': 2}
+
     def __init__(self, csv_file="tasks-list.csv"):
         self.csv_file = csv_file
         self.task_list = []
         self.initialize_csv()
         self.load_from_csv()
-
+        
     def initialize_csv(self):
         if not os.path.exists(self.csv_file):
             with open(self.csv_file, mode='w', newline='') as file:
@@ -30,10 +35,33 @@ class TaskOperations:
                 writer.writerow([task.name, task.deadline, task.priority])
 
     def add_task(self):
-        name = input("Enter the task: ")
-        self.task_list.append(Task(name))
-        print(f"{name} has been added to the task list.")
-        self.save_to_csv()
+    name = input("Enter the task: ").strip()
+
+    # Validate priority input
+    while True:
+        priority = input("Enter the task (high, medium, low): ").lower().strip()
+        if priority in self.priority_map:
+            break
+        print("Invalid priority. Please enter 'high', 'medium', or 'low'.")
+    priority_num = self.priority_map[priority]
+
+    # Validate deadline input
+    while True:
+        deadline = input("Enter the task (YYYY-MM-DD): ").strip()
+        try:
+            deadline = datetime.strptime(deadline, "%Y-%m-%d").date()
+        except ValueError:
+            print("Invalid date. Please enter a valid date in YYYY-MM-DD format.")
+            continue
+
+        if deadline < datetime.now(ZoneInfo("Canada/Pacific")).date():
+            print("Deadline cannot be in the past. Please enter a valid date.")
+            continue
+        break
+
+    self.task_list.append(Task(name, deadline, priority_num))
+    print(f"'{name}' with priority '{priority}' and deadline '{deadline}' has been added to the list.")
+    self.save_to_csv()
 
     def remove_task(self):
         task_number = input("Enter the task number to remove: ")
