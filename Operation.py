@@ -136,11 +136,12 @@ class TaskOperations:
 
     def suggest_tasks(self):
         while True:
+            # Exit if no tasks are available
             if not self.task_list:
                 print("No tasks to suggest.")
                 return
 
-            # Ordenar por deadline (mais próximo primeiro), depois por prioridade
+            # Sort tasks by deadline (soonest first), then by priority (high to low)
             sorted_tasks = sorted(
                 self.task_list,
                 key=lambda task: (
@@ -149,19 +150,21 @@ class TaskOperations:
                 )
             )
 
-            # Cabeçalho com alinhamento
+            # Print header with aligned columns
             print("\nSuggested Tasks (sorted by deadline and priority):\n")
             print(f"{'No.':<5} {'Task Name':<30} {'Deadline':<12} {'Priority':<10}")
             print("-" * 60)
 
-            # Mostrar até 5 tarefas
+            # Show up to 5 tasks
             top_tasks = sorted_tasks[:5]
             for i, task in enumerate(top_tasks, 1):
                 print(f"{i:<5} {task.name:<30} {str(task.deadline):<12} {self.get_priority_label(task.priority):<10}")
 
+            # Prompt user to exit the loop
             print("\nTap any key to leave...")
             if keyboard.read_event().event_type == keyboard.KEY_DOWN:
                 break
+
             
 
     def exit_app(self):
