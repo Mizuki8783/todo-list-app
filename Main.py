@@ -5,9 +5,11 @@ def main():
 
     while True:
         print("\nTo-Do List Application")
+        to.view_tasks()
+        print()
         print("1. Add Task")
         print("2. Remove Task")
-        print("3. View Task")
+        print("3. Sort Task")
         print("4. Suggest Task")
         print("5. Exit")
 
@@ -25,7 +27,7 @@ def main():
         elif operation == 2:
             to.remove_task()
         elif operation == 3:
-            to.view_tasks()
+            to.sort_tasks()
         elif operation == 4:
             to.suggest_tasks()
         elif operation == 5:
