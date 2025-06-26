@@ -1,3 +1,4 @@
+
 # TDL (To-Do List) Project
 
 This is a console-based To-Do List application that allows users to manage their tasks efficiently through a simple menu system.
@@ -14,19 +15,23 @@ This is a console-based To-Do List application that allows users to manage their
 
 - **Add Task**: Input task name, priority (`high`, `medium`, `low`), and deadline (`YYYY-MM-DD`).
 - **Remove Task**: Delete a task by its position number.
-- **View Tasks**: Display all tasks, optionally sorted by one or two attributes (`name`, `deadline`, `priority`).
-- **Suggest Tasks**: Automatically suggests up to 5 tasks sorted by priority (high to low) and then by deadline (sooner first).
+- **View Tasks**: Display all tasks in a clean table format, optionally sorted by one or two attributes (`priority`, `deadline`).
+- **Suggest Tasks**: Automatically suggests up to 5 tasks sorted by deadline (soonest first) and then by priority (high to low). Press any key to return.
 - **Persistent Storage**: Tasks are saved and loaded automatically from a CSV file using `pandas`.
 
 ## 📁 Project Structure
 
 ```
-TDL/
-├── Main.py          # Entry point of the application
-├── Task.py          # Task class definition
-├── Operation.py     # Core task operations
-├── tasks-list.csv   # Data storage (auto-created)
-├── README.md        # Project documentation
+todo-list-app/
+├── Main.py           # Entry point of the application
+├── Task.py           # Task class definition
+├── Operation.py      # Core task operations
+├── tasks-list.csv    # Task data file (auto-created)
+├── README.md         # Project documentation
+├── requirements.txt  # Dependency list
+├── pyproject.toml    # Python project metadata
+├── .gitignore        # Git ignore rules
+├── .python-version   # Python version manager file (if used)
 ```
 
 ## 🏗️ Architecture
@@ -41,8 +46,8 @@ Represents a single task with the following attributes:
 Contains core logic for managing tasks:
 - `add_task()`: Create and validate a new task
 - `remove_task()`: Remove task by number
-- `view_tasks()`: Show tasks with optional multi-level sorting
-- `suggest_tasks()`: Recommend tasks based on priority and deadline
+- `view_tasks()`: Show tasks in a formatted table with optional multi-level sorting
+- `suggest_tasks()`: Recommend tasks based on deadline and priority
 - `exit_app()`: Save and exit
 
 ### Main Module (`Main.py`)
@@ -53,11 +58,12 @@ Contains core logic for managing tasks:
 
 - Python 3.9+
 - [pandas](https://pypi.org/project/pandas/)
+- [keyboard](https://pypi.org/project/keyboard/)
 
 Install dependencies:
 
 ```bash
-pip install pandas
+pip install pandas keyboard
 ```
 
 ## 🎯 Running the Application
