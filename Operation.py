@@ -96,43 +96,46 @@ class TaskOperations:
         self.save_to_csv()
 
     def view_tasks(self):
-        # Display and optionally sort the list of tasks by selected columns
-        columns = list(self.task_list[0].__dict__.keys())
+        priority_reverse_map = {v: k.capitalize() for k, v in self.priority_map.items()}
+        print("To-Do List:")
+        for i, task in enumerate(self.task_list):
+            print(f"{i + 1}. {task.name} - {priority_reverse_map[task.priority]} - {task.deadline}")
 
-        print("You can enter up to two columns you'd like to sort by below. If nothing is entered, the default order in the document will be used.")
-        column_first = input("Enter the first column you want to sort by: ")
-        
-        # If no valid column is provided, show unsorted list
+    def sort_tasks(self):
+        # Nothing to sort
+        if len(self.task_list) == 0:
+            print("No tasks to sort.")
+            return
+
+        columns = list(self.task_list[0].__dict__.keys())
+        print("Enter up to two columns to sort by. If nothing is entered, the list will follow the last sorting or the default order.")
+
+        # First column input
+        column_first = input("Enter the first column you want to sort by (priority or deadline): ")
+        # Check if the input value is an existing column
         while column_first not in columns:
             if column_first == "":
-                print("To-Do List:")
-                for i, task in enumerate(self.task_list):
-                    print(f"{i + 1}. {task.name} - {self.get_priority_label(task.priority)} - {task.deadline}")
-                break
+                return
             print("Column doesn't exist!")
-            column_first = input("Enter the first column you want to sort by: ")
-        else:
-            # Allow second level sorting
-            column_second = input("Enter the second column you want to sort by: ")
-            while (column_second not in columns or column_second == column_first):
-                if column_second == "":
-                    # Sort by first column only
-                    sorted_tasks = sorted(self.task_list, key=lambda task: getattr(task, column_first))
-                    print("To-Do List:")
-                    for i, sorted_task in enumerate(sorted_tasks):
-                        print(f"{i + 1}. {task.name} - {self.get_priority_label(task.priority)} - {task.deadline}")
-                    return
-                if column_second not in columns:
-                    print("Column doesn't exist!")
-                elif column_second == column_first:
-                    print("This column is already sorted!")
-                column_second = input("Enter the second column you want to sort by: ")
+            column_first = input("Enter the first column you want to sort by (priority or deadline): ")
 
-            # Sort by two columns
-            sorted_tasks = sorted(self.task_list, key=lambda task: (getattr(task, column_first), getattr(task, column_second)))
-            print("To-Do List:")
-            for i, sorted_task in enumerate(sorted_tasks):
-                print(f"{i + 1}. {task.name} - {self.get_priority_label(task.priority)} - {task.deadline}")
+        # Second column input
+        column_second = input("Enter the second column you want to sort by (priority or deadline): ")
+        # Check if the input value is an existing column or is the same as the first column input
+        while column_second not in columns or column_second == column_first:
+            if column_second == "":
+                sorted_tasks = sorted(self.task_list,
+                                      key=lambda task: getattr(task, column_first))
+                self.task_list = sorted_tasks
+                return
+            if column_second not in columns:
+                print("Column doesn't exist!")
+            elif column_second == column_first:
+                print("This column is already sorted!")
+            column_second = input("Enter the second column you want to sort by (priority or deadline): ")
+        sorted_tasks = sorted(self.task_list, key=lambda task: (getattr(task, column_first),
+                                                                getattr(task, column_second)))
+        self.task_list = sorted_tasks
 
     def suggest_tasks(self):
         while True:
