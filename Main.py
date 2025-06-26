@@ -12,11 +12,12 @@ def main():
         print("3. Sort Task")
         print("4. Suggest Task")
         print("5. Exit")
+        print("6. Clean Terminal")
 
         try:
             operation = int(input("Enter your choice: "))
         except ValueError:
-            print("Invalid input. Please enter a number between 1 and 5.")
+            print("Invalid input. Please enter a number between 1 and 6.")
             continue
         except Exception:
             print("An unexpected error occurred.")
@@ -33,6 +34,8 @@ def main():
         elif operation == 5:
             to.exit_app()
             break
+        elif operation == 6:
+            to.clear_screen()
         else:
             print("Invalid choice. Please select a number between 1 and 5.")
 
