@@ -28,7 +28,7 @@ class TaskOperations:
                 df = pd.read_csv(self.csv_file)
                 for _, row in df.iterrows():
                     # Convert each row into a Task object
-                    self.task_list.append(Task(row["name"], row["deadline"], int(row["priority"])))
+                    self.task_list.append(Task(row["name"], datetime.strptime(row["deadline"], "%Y-%m-%d").date(), int(row["priority"])))
             except Exception as e:
                 print("Failed to load tasks:", e)
         else:
@@ -157,7 +157,7 @@ class TaskOperations:
             sorted_tasks = sorted(
                 self.task_list,
                 key=lambda task: (
-                    datetime.strptime(str(task.deadline), "%Y-%m-%d"),
+                    task.deadline,
                     task.priority
                 )
             )
