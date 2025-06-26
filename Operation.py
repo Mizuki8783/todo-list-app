@@ -172,8 +172,9 @@ class TaskOperations:
 
             # Prompt user to exit the loop
             print("\nTap any key to leave...")
-            if keyboard.read_event().event_type == keyboard.KEY_DOWN:
-                break
+            keyboard.read_event()  # aguarda apenas uma tecla
+            break
+
 
             
 
