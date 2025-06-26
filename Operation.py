@@ -52,7 +52,7 @@ class TaskOperations:
 
         # Validate priority input
         while True:
-            priority = input("Enter the task (high, medium, low): ").lower().strip()
+            priority = input("Enter the task priority (high, medium, low): ").lower().strip()
             if priority in self.priority_map:
                 break
             print("Invalid priority. Please enter 'high', 'medium', or 'low'.")
@@ -174,9 +174,6 @@ class TaskOperations:
             print("\nTap any key to leave...")
             keyboard.read_event()  # aguarda apenas uma tecla
             break
-
-
-            
 
     def exit_app(self):
         # Save and exit the program
