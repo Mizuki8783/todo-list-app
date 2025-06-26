@@ -95,16 +95,16 @@ class TaskOperations:
         print("Enter up to two columns to sort by. If nothing is entered, the list will follow the last sorting or the default order.")
 
         # First column input
-        column_first = input("Enter the first column you want to sort by (priority or deadline): ")
+        column_first = input("Enter the first column you want to sort by (name, priority or deadline): ")
         # Check if the input value is an existing column
         while column_first not in columns:
             if column_first == "":
                 return
             print("Column doesn't exist!")
-            column_first = input("Enter the first column you want to sort by (priority or deadline): ")
+            column_first = input("Enter the first column you want to sort by (name, priority or deadline): ")
 
         # Second column input
-        column_second = input("Enter the second column you want to sort by (priority or deadline): ")
+        column_second = input("Enter the second column you want to sort by (name, priority or deadline): ")
         # Check if the input value is an existing column or is the same as the first column input
         while column_second not in columns or column_second == column_first:
             if column_second == "":
@@ -116,7 +116,7 @@ class TaskOperations:
                 print("Column doesn't exist!")
             elif column_second == column_first:
                 print("This column is already sorted!")
-            column_second = input("Enter the second column you want to sort by (priority or deadline): ")
+            column_second = input("Enter the second column you want to sort by (name, priority or deadline): ")
         sorted_tasks = sorted(self.task_list, key=lambda task: (getattr(task, column_first),
                                                                 getattr(task, column_second)))
         self.task_list = sorted_tasks
