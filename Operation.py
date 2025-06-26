@@ -16,6 +16,9 @@ class TaskOperations:
         self.task_list = []
         self.load_from_csv()
 
+    def clear_screen(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
+
     def get_priority_label(self, priority_num):
         return {v: k.capitalize() for k, v in self.priority_map.items()}[priority_num]
 
@@ -170,9 +173,14 @@ class TaskOperations:
             for i, task in enumerate(top_tasks, 1):
                 print(f"{i:<5} {task.name:<30} {str(task.deadline):<12} {self.get_priority_label(task.priority):<10}")
 
-            # Prompt user to exit the loop
-            print("\nTap any key to leave...")
-            keyboard.read_event()  # aguarda apenas uma tecla
+            print()
+            print("Tap any key to quit")
+            # 🧹 Clear keyboard buffer to prevent capturing previous key press
+            while keyboard.is_pressed(keyboard.read_key()):
+                pass
+
+            # ⌨️ Wait for a fresh key press before exiting
+            keyboard.read_key()
             break
 
     def exit_app(self):
