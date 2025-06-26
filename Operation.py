@@ -174,15 +174,12 @@ class TaskOperations:
                 print(f"{i:<5} {task.name:<30} {str(task.deadline):<12} {self.get_priority_label(task.priority):<10}")
 
             print()
-            print("Tap any key to quit")
-            # 🧹 Clear keyboard buffer to prevent capturing previous key press
-            while keyboard.is_pressed(keyboard.read_key()):
-                pass
-
-            # ⌨️ Wait for a fresh key press before exiting
-            keyboard.read_key()
-            break
-
+            #Prompt until user presses 'q' or 'Q'
+            while True:
+                answer = input("Press Q to quit suggestions: ").strip().lower()
+                if answer == 'q':
+                    return
+                
     def exit_app(self):
         # Save and exit the program
         print("Exiting the application. Goodbye!")
