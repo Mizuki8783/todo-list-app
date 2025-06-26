@@ -96,10 +96,17 @@ class TaskOperations:
         self.save_to_csv()
 
     def view_tasks(self):
-        priority_reverse_map = {v: k.capitalize() for k, v in self.priority_map.items()}
-        print("To-Do List:")
-        for i, task in enumerate(self.task_list):
-            print(f"{i + 1}. {task.name} - {priority_reverse_map[task.priority]} - {task.deadline}")
+        if not self.task_list:
+            print("No tasks to display.")
+            return
+
+        print("\nTo-Do List:\n")
+        print(f"{'No.':<5} {'Task Name':<30} {'Deadline':<12} {'Priority':<10}")
+        print("-" * 60)
+
+        for i, task in enumerate(self.task_list, 1):
+            print(f"{i:<5} {task.name:<30} {str(task.deadline):<12} {self.get_priority_label(task.priority):<10}")
+
 
     def sort_tasks(self):
         # Nothing to sort
