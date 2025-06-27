@@ -1,0 +1,6 @@
+# Add other librarys here if you use
+# To set up your venv you need:
+# 1 - Create first your venv
+# 2 - Activate it
+# 3 - use the command pip install -r requirements.txt
+pandas
